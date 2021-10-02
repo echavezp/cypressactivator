@@ -1,0 +1,33 @@
+{
+  "name": "homeactivator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open",
+    "cypress:chrome": "cypress run --browser chrome --spec cypress/integration/tests/*.spec.js",
+    "cypress:firefox": "cypress run --browser firefox --spec cypress/integration/tests/*.spec.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^8.5.0",
+    "cypress-mochawesome-reporter": "^2.3.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "standard": "^16.0.3"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json",
+    "plugins": [
+      "cypress"
+    ],
+    "env": {
+      "jest": true,
+      "browser": true,
+      "cypress/globals": true
+    }
+  }
+}

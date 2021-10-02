@@ -1,0 +1,12 @@
+{
+    "experimentalStudio": true,
+    "screeshotOnRunFailure": true,
+    "chromeWebSecurity": false,
+    "reporter": "cypress-mochawesome-reporter",
+    "reporterOptions": {
+        "reportDir": "cypress/report",
+        "charts": true,
+        "reportPageTitle": "Report",
+        "embeddedScreenshots": true
+    }
+}
