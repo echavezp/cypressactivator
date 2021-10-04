@@ -1,6 +1,6 @@
 describe('Solicitudes', () => {
   beforeEach(() => {
-    cy.viewport(1400, 950)
+    cy.viewport(1400, 850)
     cy.visit('http://gdp-portal.apps.csdqa.comcel.com.gt/')
     cy.get('input[placeholder="Usuario"]').clear().type('usractivator')
     cy.get('input[placeholder="Contraseña"]').clear().type('Aa123456!')
