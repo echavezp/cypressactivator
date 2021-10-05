@@ -5,9 +5,16 @@ describe('Solicitudes', () => {
     cy.get('input[placeholder="Usuario"]').clear().type('usractivator')
     cy.get('input[placeholder="Contraseña"]').clear().type('Aa123456!')
     cy.get('button[type="submit"]').click()
+    cy.wait(100)
     cy.url().should('include', '/apps')
     cy.contains('div[class="datos"] > p', 'Activation manager').click()
     cy.url().should('include', '/init')
+    cy.wait(200)
+    cy.get('li[class="treeview"]').should('not.exist')
+      .then(() => {
+        cy.reload(true)
+      })
+
     cy.contains('li[class="treeview"] > a > span', 'Solicitudes').click()
   })
 
@@ -15,7 +22,7 @@ describe('Solicitudes', () => {
   const pendiente = '1500001'
   const finalizada = '33124536'
   const rechazada = '2358294550301'
-
+  /*
   it('Recibidas - Documento', () => {
     cy.contains('ul[class="treeview-menu"] > li > a', 'Solicitudes recibidas').click()
     cy.url().should('include', '/request')
@@ -25,6 +32,8 @@ describe('Solicitudes', () => {
     cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(2) > img').click()
     cy.wait(100)
     cy.screenshot()
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
 
   it('Recibidas - Consultar', () => {
@@ -37,8 +46,26 @@ describe('Solicitudes', () => {
     cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(1) > img').click()
     cy.url().should('include', '/request-detail')
     cy.screenshot()
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
-
+*/
+  it('Recibidas', () => {
+    cy.contains('ul[class="treeview-menu"] > li > a', 'Solicitudes recibidas').click()
+    cy.url().should('include', '/request')
+    cy.get('.filtro > .input-search').clear().type(recibida)
+    cy.get('.filtro > .btn').click()
+    cy.wait(10)
+    cy.screenshot()
+    cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(2) > img').click()
+    cy.wait(200)
+    cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(1) > img').click()
+    cy.url().should('include', '/request-detail')
+    cy.screenshot()
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
+  })
+  /*
   it('Pendientes - Documento', () => {
     cy.contains('ul[class="treeview-menu"] > li > a', 'Solicitudes pendientes').click()
     cy.url().should('include', '/request/pendientes')
@@ -48,6 +75,8 @@ describe('Solicitudes', () => {
     cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(2) > img').click()
     cy.wait(100)
     cy.screenshot()
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
 
   it('Pendientes - Consultar', () => {
@@ -60,8 +89,26 @@ describe('Solicitudes', () => {
     cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(1) > img').click()
     cy.wait(100)
     cy.screenshot()
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
-
+*/
+  it('Pendientes', () => {
+    cy.contains('ul[class="treeview-menu"] > li > a', 'Solicitudes pendientes').click()
+    cy.url().should('include', '/request/pendientes')
+    cy.get('.filtro > .input-search').clear().type(pendiente)
+    cy.get('.filtro > .btn').click()
+    cy.wait(100)
+    cy.screenshot()
+    cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(2) > img').click()
+    cy.wait(200)
+    cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(1) > img').click()
+    cy.wait(100)
+    cy.screenshot()
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
+  })
+  /*
   it('finalizadas - Documento', () => {
     cy.contains('ul[class="treeview-menu"] > li > a', 'Solicitudes finalizadas').click()
     cy.url().should('include', '/request/finalizadas')
@@ -71,6 +118,8 @@ describe('Solicitudes', () => {
     cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(2) > img').click()
     cy.wait(100)
     cy.screenshot()
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
 
   it('finalizadas - Consultar', () => {
@@ -83,8 +132,26 @@ describe('Solicitudes', () => {
     cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(1) > img').click()
     cy.wait(100)
     cy.screenshot()
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
-
+*/
+  it('finalizadas', () => {
+    cy.contains('ul[class="treeview-menu"] > li > a', 'Solicitudes finalizadas').click()
+    cy.url().should('include', '/request/finalizadas')
+    cy.get('.filtro > .input-search').clear().type(finalizada)
+    cy.get('.filtro > .btn').click()
+    cy.wait(100)
+    cy.screenshot()
+    cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(2) > img').click()
+    cy.wait(200)
+    cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(1) > img').click()
+    cy.wait(100)
+    cy.screenshot()
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
+  })
+  /*
   it('rechazadas - Documento', () => {
     cy.contains('ul[class="treeview-menu"] > li > a', 'Solicitudes rechazadas').click()
     cy.url().should('include', '/request/rechazadas')
@@ -92,8 +159,10 @@ describe('Solicitudes', () => {
     cy.get('.filtro > .btn').click()
     cy.wait(100)
     cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(2) > img').click()
-    cy.wait(100)
+    cy.wait(900)
     cy.screenshot()
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
 
   it('rechazadas - Consultar', () => {
@@ -104,7 +173,25 @@ describe('Solicitudes', () => {
     cy.wait(100)
     cy.screenshot()
     cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(1) > img').click()
+    cy.wait(900)
+    cy.screenshot()
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
+  })
+  */
+  it('rechazadas', () => {
+    cy.contains('ul[class="treeview-menu"] > li > a', 'Solicitudes rechazadas').click()
+    cy.url().should('include', '/request/rechazadas')
+    cy.get('.filtro > .input-search').clear().type(rechazada)
+    cy.get('.filtro > .btn').click()
     cy.wait(100)
     cy.screenshot()
+    cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(2) > img').click()
+    cy.wait(200)
+    cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(1) > img').click()
+    cy.wait(900)
+    cy.screenshot()
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
 })

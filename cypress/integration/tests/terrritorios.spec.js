@@ -8,6 +8,11 @@ describe('Territorios', () => {
     cy.url().should('include', '/apps')
     cy.contains('div[class="datos"] > p', 'Activation manager').click()
     cy.url().should('include', '/init')
+    cy.wait(200)
+    cy.get('li[class="treeview"]').should('not.exist')
+      .then(() => {
+        cy.reload(true)
+      })
     cy.contains('li[class="treeview"] > a > span', 'Vendedores y territorios').click()
     cy.contains('ul[class="treeview-menu"] > li > a', 'Territorios').click()
     cy.url().should('include', '/territories')
@@ -23,6 +28,8 @@ describe('Territorios', () => {
     cy.screenshot()
     cy.get('.d-block > .modal-dialog > .modal-content > .modal-footer > .btn').click()
     cy.contains('.snotifyToast__body', 'Registro guardado con éxito')
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
 
   it('Editar', () => {
@@ -34,6 +41,8 @@ describe('Territorios', () => {
     cy.screenshot()
     cy.get('.d-block > .modal-dialog > .modal-content > .modal-footer > .btn').click()
     cy.contains('.snotifyToast__body', 'Registro guardado con éxito')
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
 
   it('Eliminar', () => {
@@ -44,5 +53,7 @@ describe('Territorios', () => {
     cy.screenshot()
     cy.get(':nth-child(2) > .swal-button').click()
     cy.contains('.snotifyToast__body', 'Registro eliminado con éxito')
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
 })

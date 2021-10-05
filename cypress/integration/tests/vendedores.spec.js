@@ -4,16 +4,22 @@ describe('Vendedores', () => {
     cy.visit('http://gdp-portal.apps.csdqa.comcel.com.gt/')
     cy.get('input[placeholder="Usuario"]').clear().type('usractivator')
     cy.get('input[placeholder="Contraseña"]').clear().type('Aa123456!')
-    cy.get('button[type="submit"]').click()
+    cy.get('button[type="submit"]').click().wait(100)
     cy.url().should('include', '/apps')
     cy.contains('div[class="datos"] > p', 'Activation manager').click()
     cy.url().should('include', '/init')
+    cy.wait(200)
+    cy.get('li[class="treeview"]').should('not.exist')
+      .then(() => {
+        cy.reload(true)
+      })
+
     cy.contains('li[class="treeview"] > a > span', 'Vendedores y territorios').click()
     cy.contains('ul[class="treeview-menu"] > li > a', 'Vendedores').click()
     cy.url().should('include', '/salesperson')
   })
 
-  const nombre = 'PRUEBA3'
+  const nombre = 'PRUEBA4'
 
   it('Crear', () => {
     cy.contains('.content-header > .btn', 'Agregar nuevo').click()
@@ -29,6 +35,9 @@ describe('Vendedores', () => {
     cy.screenshot()
     cy.get('.d-block > .modal-dialog > .modal-content > .modal-footer > .btn').click()
     // cy.contains('.snotifyToast__body', 'Registro guardado con éxito')
+    cy.wait(500)
+    cy.get('.d-block > .modal-dialog > .modal-content > .modal-header > .close > span').click()
+    cy.get('.pull-right > .btn').click()
   })
 
   it('Crear - Valida Telefono', () => {
@@ -45,6 +54,9 @@ describe('Vendedores', () => {
     cy.screenshot()
     cy.get('.d-block > .modal-dialog > .modal-content > .modal-footer > .btn').click()
     cy.contains('.snotifyToast__body', "El campo 'Teléfono' no tiene el formato correcto")
+    cy.wait(500)
+    cy.get('.d-block > .modal-dialog > .modal-content > .modal-header > .close > span').click()
+    cy.get('.pull-right > .btn').click()
   })
 
   it('Crear - Valida Email', () => {
@@ -61,6 +73,9 @@ describe('Vendedores', () => {
     cy.screenshot()
     cy.get('.d-block > .modal-dialog > .modal-content > .modal-footer > .btn').click()
     cy.contains('.snotifyToast__body', "El campo 'Email' no tiene el formato correcto")
+    cy.wait(500)
+    cy.get('.d-block > .modal-dialog > .modal-content > .modal-header > .close > span').click()
+    cy.get('.pull-right > .btn').click()
   })
 
   it('Editar', () => {
@@ -73,6 +88,8 @@ describe('Vendedores', () => {
     cy.screenshot()
     cy.get('.d-block > .modal-dialog > .modal-content > .modal-footer > .btn').click()
     cy.contains('.snotifyToast__body', 'Registro guardado con éxito')
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
 
   it('Eliminar', () => {
@@ -83,5 +100,7 @@ describe('Vendedores', () => {
     cy.screenshot()
     cy.get(':nth-child(2) > .swal-button').click()
     cy.contains('.snotifyToast__body', 'Registro desactivado con éxito')
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
 })

@@ -8,6 +8,12 @@ describe('Reportes', () => {
     cy.url().should('include', '/apps')
     cy.contains('div[class="datos"] > p', 'Activation manager').click()
     cy.url().should('include', '/init')
+    cy.wait(200)
+    cy.get('li[class="treeview"]').should('not.exist')
+      .then(() => {
+        cy.reload(true)
+      })
+
     cy.contains('li[class="treeview"] > a > span', 'Reportería').click()
   })
   const fecha = new Date()
@@ -21,6 +27,8 @@ describe('Reportes', () => {
     cy.get('.filtro > button').click()
     cy.screenshot()
     cy.readFile('cypress/downloads/vendor_report.csv').should('exist')
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
 
   it('Reporte de solicitudes', () => {
@@ -33,5 +41,7 @@ describe('Reportes', () => {
     cy.get('.filtro > button').click()
     cy.screenshot()
     cy.readFile('cypress/downloads/requestreport.csv').should('exist')
+    cy.wait(500)
+    cy.get('.pull-right > .btn').click()
   })
 })
