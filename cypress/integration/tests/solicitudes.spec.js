@@ -9,16 +9,21 @@ describe('Solicitudes', () => {
     cy.url().should('include', '/apps')
     cy.contains('div[class="datos"] > p', 'Activation manager').click()
     cy.url().should('include', '/init')
-    cy.wait(200)
-    cy.get('li[class="treeview"]').should('not.exist')
-      .then(() => {
-        cy.reload(true)
+    cy.wait(1500)
+    cy.get('span#username')
+      .then(($item) => {
+        if ($item.text().toString() === 'undefined') {
+          cy.reload(true).should(() => {
+            cy.wait(900)
+          })
+        }
       })
 
     cy.contains('li[class="treeview"] > a > span', 'Solicitudes').click()
   })
 
-  const recibida = '7472339889'
+  // const recibida = '7472339889'
+  const recibida = '1503330'
   const pendiente = '1500001'
   const finalizada = '33124536'
   const rechazada = '2358294550301'
@@ -61,6 +66,7 @@ describe('Solicitudes', () => {
     cy.wait(200)
     cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(1) > img').click()
     cy.url().should('include', '/request-detail')
+    cy.wait(500)
     cy.screenshot()
     cy.wait(500)
     cy.get('.pull-right > .btn').click()
@@ -101,9 +107,9 @@ describe('Solicitudes', () => {
     cy.wait(100)
     cy.screenshot()
     cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(2) > img').click()
-    cy.wait(200)
+    cy.wait(500)
     cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(1) > img').click()
-    cy.wait(100)
+    cy.wait(500)
     cy.screenshot()
     cy.wait(500)
     cy.get('.pull-right > .btn').click()
@@ -146,7 +152,7 @@ describe('Solicitudes', () => {
     cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(2) > img').click()
     cy.wait(200)
     cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(8) > .datatable-body-cell-label > :nth-child(1) > img').click()
-    cy.wait(100)
+    cy.wait(500)
     cy.screenshot()
     cy.wait(500)
     cy.get('.pull-right > .btn').click()

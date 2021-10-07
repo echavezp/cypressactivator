@@ -8,10 +8,14 @@ describe('Celdas', () => {
     cy.url().should('include', '/apps')
     cy.contains('div[class="datos"] > p', 'Activation manager').click()
     cy.url().should('include', '/init')
-    cy.wait(200)
-    cy.get('li[class="treeview"]').should('not.exist')
-      .then(() => {
-        cy.reload(true)
+    cy.wait(1500)
+    cy.get('span#username')
+      .then(($item) => {
+        if ($item.text().toString() === 'undefined') {
+          cy.reload(true).should(() => {
+            cy.wait(900)
+          })
+        }
       })
 
     cy.contains('li[class="treeview"] > a > span', 'Configuración').click()
@@ -39,8 +43,8 @@ describe('Celdas', () => {
     cy.get('.filtro > .input-search').clear().type('cell ' + ide)
     cy.get('.filtro > .btn').click()
     cy.wait(1000)
-    // cy.get('.datatable-body-cell-label > :nth-child(1) > img').click()
-    cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(6) > .datatable-body-cell-label > .width-20 > img').click()
+    cy.get('.datatable-body-cell-label > :nth-child(1) > img').click()
+    // cy.get(':nth-child(1) > .datatable-body-row > .datatable-row-center > :nth-child(6) > .datatable-body-cell-label > .width-20 > img').click()
     cy.get('input#description').clear().type('cells ' + ide) // COMENTARIOS
     cy.get(':nth-child(4) > #state').select('1') // Estado
     cy.screenshot()

@@ -8,11 +8,16 @@ describe('Territorios', () => {
     cy.url().should('include', '/apps')
     cy.contains('div[class="datos"] > p', 'Activation manager').click()
     cy.url().should('include', '/init')
-    cy.wait(200)
-    cy.get('li[class="treeview"]').should('not.exist')
-      .then(() => {
-        cy.reload(true)
+    cy.wait(1500)
+    cy.get('span#username')
+      .then(($item) => {
+        if ($item.text().toString() === 'undefined') {
+          cy.reload(true).should(() => {
+            cy.wait(900)
+          })
+        }
       })
+
     cy.contains('li[class="treeview"] > a > span', 'Vendedores y territorios').click()
     cy.contains('ul[class="treeview-menu"] > li > a', 'Territorios').click()
     cy.url().should('include', '/territories')
